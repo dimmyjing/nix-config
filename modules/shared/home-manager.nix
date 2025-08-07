@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 {
   zsh = {
@@ -9,7 +14,13 @@
     };
     oh-my-zsh = {
       enable = true;
-      plugins = [ "git" "vi-mode" "extract" "safe-paste" "tmux" ];
+      plugins = [
+        "git"
+        "vi-mode"
+        "extract"
+        "safe-paste"
+        "tmux"
+      ];
     };
     plugins = [
       {
@@ -26,11 +37,9 @@
     syntaxHighlighting = {
       enable = true;
     };
-    initExtra = ''
-      export PATH="$HOME/.local/share/gem/ruby/3.3.4/bin:$PATH"
-      export GEM_HOME="$HOME/.local/share/gem/ruby/3.3.4"
-      export GEM_PATH="$HOME/.local/share/gem/ruby/3.3.4"
+    initContent = ''
       export PATH="$HOME/go/bin:$PATH"
+      export PATH="$HOME/.cargo/bin:$PATH"
       export DOCKER_HOST="unix://$HOME/.colima/docker.sock"
     '';
   };
@@ -44,15 +53,16 @@
       {
         plugin = power-theme;
         extraConfig = ''
-	    set -g @tmux_power_theme '#8FAEF9'
-	    set -g default-terminal "tmux-256color"
-	    set -ag terminal-overrides ",$TERM:RGB"
+          set -g @tmux_power_theme '#8FAEF9'
+          set -g default-terminal "tmux-256color"
+          set -ag terminal-overrides ",$TERM:RGB"
         '';
       }
     ];
     baseIndex = 1;
     mouse = true;
     historyLimit = 50000;
+    keyMode = "vi";
     shell = "$SHELL";
     extraConfig = ''
       bind-key h select-pane -L
@@ -98,8 +108,8 @@
     enableZshIntegration = true;
     flags = [ "--disable-up-arrow" ];
     # settings = {
-      # keymap_mode = "vim";
-      # enter_accept = true;
+    # keymap_mode = "vim";
+    # enter_accept = true;
     # };
   };
 }

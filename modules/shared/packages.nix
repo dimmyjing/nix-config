@@ -4,16 +4,17 @@ let
   update = pkgs.writeShellScriptBin "update" ''
     sudo yabai --load-sa
     git -C /Users/jimmy/Workspace/nix add /Users/jimmy/Workspace/nix
-    darwin-rebuild switch --flake /Users/jimmy/Workspace/nix
+    sudo darwin-rebuild switch --flake /Users/jimmy/Workspace/nix
     sudo yabai --load-sa
   '';
-in with pkgs; [
+in
+with pkgs;
+[
   jq
   yq
   ripgrep
   tmux
   go
-  (postgresql_16.withPackages ( p: with p; [ pgvector ]))
   bun
   golangci-lint
   docker
@@ -32,8 +33,10 @@ in with pkgs; [
   imagemagick
   gleam
   erlang
-  (python3.withPackages ( p: with p; [
-  ]))
+  (python3.withPackages (
+    p: with p; [
+    ]
+  ))
   turso-cli
   markdownlint-cli
   jdk21
@@ -66,7 +69,14 @@ in with pkgs; [
   typst
   wget
   fzf
-  nodejs_23
+  nodejs_24
+  jujutsu
+  ruby
+  pnpm
+  weechat
+  nixfmt-rfc-style
+  nixd
+  gradle_8
   # ghc
   # haskellPackages.haskell-language-server
   # haskellPackages.cabal-install

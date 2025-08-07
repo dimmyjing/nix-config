@@ -1,4 +1,10 @@
-{ config, pkgs, lib, home-manager, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  home-manager,
+  ...
+}:
 
 let
   # Define the content of your file as a derivation
@@ -17,41 +23,40 @@ in
 
     homebrew = {
       enable = true;
-      casks = pkgs.callPackage ./casks.nix {};
-
-      # These app IDs are from using the mas CLI app
-      # mas = mac app store
-      # https://github.com/mas-cli/mas
-      #
-      # $ nix shell nixpkgs#mas
-      # $ mas search <app name>
-      #
-      masApps = {
-        # "1password" = 1333542190;
-        # "wireguard" = 1451685025;
-        "things3" = 904280696;
-      };
+      casks = pkgs.callPackage ./casks.nix { };
     };
 
     services.yabai = {
       enable = true;
     };
 
+    services.tailscale = {
+      enable = true;
+    };
+
     # Enable home-manager
     home-manager = {
       useGlobalPkgs = true;
-      users.jimmy = { pkgs, config, lib, ... }: {
-        home = {
-          enableNixpkgsReleaseCheck = false;
-          packages = pkgs.callPackage ./packages.nix {};
-          file = lib.mkMerge [
-            sharedFiles
-            additionalFiles
-          ];
-          stateVersion = "23.11";
-        } // import ../shared/home.nix { inherit config pkgs lib; };
-        programs = {} // import ../shared/home-manager.nix { inherit config pkgs lib; };
-      };
+      users.jimmy =
+        {
+          pkgs,
+          config,
+          lib,
+          ...
+        }:
+        {
+          home = {
+            enableNixpkgsReleaseCheck = false;
+            packages = pkgs.callPackage ./packages.nix { };
+            file = lib.mkMerge [
+              sharedFiles
+              additionalFiles
+            ];
+            stateVersion = "23.11";
+          }
+          // import ../shared/home.nix { inherit config pkgs lib; };
+          programs = { } // import ../shared/home-manager.nix { inherit config pkgs lib; };
+        };
     };
   };
 }

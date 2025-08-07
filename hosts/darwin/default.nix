@@ -6,40 +6,49 @@
   ];
 
   config = {
-    # Create datadir for PostgreSQL
-    system.activationScripts.preActivation = {
-      enable = true;
-      text = ''
-        if [ ! -d "/var/lib/postgresql/" ]; then
-          echo "creating PostgreSQL data directory..."
-          sudo mkdir -m 750 -p /var/lib/postgresql/
-          chown -R jimmy:staff /var/lib/postgresql/
-        fi
-      '';
-    };
-
-    services.postgresql = {
-      enable = true;
-      dataDir = "/var/lib/postgresql";
-      authentication = pkgs.lib.mkOverride 10 ''
-        local all all trust
-        host all all 127.0.0.1/32 trust
-        host all all ::1/128 trust
-      '';
-      initdbArgs = ["--username=jimmy" "--pgdata=/var/lib/postgresql" "--auth=trust" "--no-locale" "--encoding=UTF8"];
-      extraPlugins = [ (pkgs.postgresql_16.pkgs.pgvector.override { postgresql = pkgs.postgresql_16; }) ];
-      package = pkgs.postgresql_16;
-    };
-
-    launchd.user.agents.postgresql.serviceConfig = {
-      StandardErrorPath = "/tmp/postgres.error.log";
-      StandardOutPath = "/tmp/postgres.log";
-    };
+    # # Create datadir for PostgreSQL
+    # system.activationScripts.preActivation = {
+    #   enable = true;
+    #   text = ''
+    #     if [ ! -d "/var/lib/postgresql/" ]; then
+    #       echo "creating PostgreSQL data directory..."
+    #       sudo mkdir -m 750 -p /var/lib/postgresql/
+    #       chown -R jimmy:staff /var/lib/postgresql/
+    #     fi
+    #   '';
+    # };
+    #
+    # services.postgresql = {
+    #   enable = true;
+    #   dataDir = "/var/lib/postgresql";
+    #   authentication = pkgs.lib.mkOverride 10 ''
+    #     local all all trust
+    #     host all all 127.0.0.1/32 trust
+    #     host all all ::1/128 trust
+    #   '';
+    #   initdbArgs = [
+    #     "--username=jimmy"
+    #     "--pgdata=/var/lib/postgresql"
+    #     "--auth=trust"
+    #     "--no-locale"
+    #     "--encoding=UTF8"
+    #   ];
+    #   extraPlugins = [ (pkgs.postgresql_16.pkgs.pgvector.override { postgresql = pkgs.postgresql_16; }) ];
+    #   package = pkgs.postgresql_16;
+    # };
+    #
+    # launchd.user.agents.postgresql.serviceConfig = {
+    #   StandardErrorPath = "/tmp/postgres.error.log";
+    #   StandardOutPath = "/tmp/postgres.log";
+    # };
 
     # Setup user, packages, programs
     nix = {
       package = pkgs.nixVersions.latest;
-      settings.trusted-users = [ "@admin" "jimmy" ];
+      settings.trusted-users = [
+        "@admin"
+        "jimmy"
+      ];
       settings.experimental-features = "nix-command flakes";
     };
 
@@ -58,6 +67,8 @@
     ];
 
     system = {
+      primaryUser = "jimmy";
+
       stateVersion = 4;
 
       defaults = {

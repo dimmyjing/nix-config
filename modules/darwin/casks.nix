@@ -9,6 +9,7 @@ _:
   # Communication Tools
   "discord"
   "slack"
+  "textual"
 
   # Browsers
   "google-chrome"
@@ -27,34 +28,38 @@ _:
   # "spotify"
   "steam"
   "prismlauncher"
+  "vlc"
 
   "burp-suite"
+  "proxyman"
 
   # Utility Tools
   "backblaze"
+  "daisydisk"
 
   /*
-  "homebrew/cask/docker"
-  "insomnia"
-  "ngrok"
-  "postico"
+    "homebrew/cask/docker"
+    "insomnia"
+    "ngrok"
+    "postico"
 
-  "loom"
-  "notion"
-  "telegram"
-  "zoom"
+    "loom"
+    "notion"
+    "telegram"
+    "zoom"
 
-  # Utility Tools
-  "appcleaner"
-  "syncthing"
+    # Utility Tools
+    "appcleaner"
+    "syncthing"
 
-  # Entertainment Tools
-  "vlc"
+    # Entertainment Tools
 
-  "asana"
+    "asana"
 
-  # AI
-  "diffusionbee"
+    # AI
+    "diffusionbee"
   */
   "chatgpt"
+
+  "jellyfin-media-player"
 ]
