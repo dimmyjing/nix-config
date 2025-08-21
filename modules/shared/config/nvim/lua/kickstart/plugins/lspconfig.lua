@@ -313,8 +313,25 @@ return {
               formatterMode = 'typstyle',
             },
           },
-          ts_ls = {},
           tsp_server = {},
+          vtsls = {
+            settings = {
+              vtsls = {
+                tsserver = {
+                  globalPlugins = {
+                    {
+                      name = '@vue/typescript-plugin',
+                      location = vim.fn.expand '$MASON/packages' .. '/vue-language-server' .. '/node_modules/@vue/language-server',
+                      languages = { 'vue' },
+                      configNamespace = 'typescript',
+                    },
+                  },
+                },
+              },
+            },
+            filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' },
+          },
+          vue_ls = {},
           yamlls = {
             settings = {
               yaml = {
@@ -392,7 +409,6 @@ return {
       -- for you, so that they are available from within Neovim.
       local ensure_installed = vim.tbl_keys(servers.mason or {})
       vim.list_extend(ensure_installed, {
-        'black', -- Python formatter
         'stylua', -- Used to format Lua code
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
