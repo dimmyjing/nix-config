@@ -28,6 +28,11 @@ in
 
     services.yabai = {
       enable = true;
+      enableScriptingAddition = true;
+      config = {
+        focus_follows_mouse = "autofocus";
+        mouse_follows_focus = "on";
+      };
     };
 
     services.tailscale = {

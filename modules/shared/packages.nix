@@ -77,6 +77,7 @@ with pkgs;
   nixfmt-rfc-style
   nixd
   gradle_8
+  websocat
   # ghc
   # haskellPackages.haskell-language-server
   # haskellPackages.cabal-install
