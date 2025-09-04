@@ -362,13 +362,6 @@ return {
         -- This table contains config for all language servers that are *not* installed via Mason.
         -- Structure is identical to the mason table from above.
         others = {
-          cuepls = {
-            cmd = { 'cuepls' },
-            -- cmd = { 'cue', 'lsp' },
-            root_dir = lspconfig.util.root_pattern('cue.mod', '.git'),
-            filetypes = { 'cue' },
-            single_file_support = true,
-          },
           -- dartls = {},
           gleam = {},
           gopls = {

@@ -1,8 +1,6 @@
 {
   config,
   pkgs,
-  lib,
-  home-manager,
   ...
 }:
 
@@ -30,9 +28,11 @@ in
       enable = true;
       enableScriptingAddition = true;
       config = {
-        focus_follows_mouse = "autofocus";
+        focus_follows_mouse = "autoraise";
         mouse_follows_focus = "on";
       };
+      extraConfig = ''
+      '';
     };
 
     services.tailscale = {

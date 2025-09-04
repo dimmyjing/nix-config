@@ -33,10 +33,7 @@ with pkgs;
   imagemagick
   gleam
   erlang
-  (python3.withPackages (
-    p: with p; [
-    ]
-  ))
+  (python3.withPackages (p: [ ]))
   turso-cli
   markdownlint-cli
   jdk21
@@ -49,7 +46,6 @@ with pkgs;
   xray
   tailwindcss
   update
-  clickhouse
   spotify-player
   btop
   duckdb
@@ -78,6 +74,7 @@ with pkgs;
   nixd
   gradle_8
   websocat
+  podman
   # ghc
   # haskellPackages.haskell-language-server
   # haskellPackages.cabal-install
