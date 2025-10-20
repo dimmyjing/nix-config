@@ -57,10 +57,41 @@ return {
         -- <c-k>: Toggle signature help
         --
         -- See :h blink-cmp-config-keymap for defining your own keymap
-        preset = 'default',
+        preset = 'none',
 
         -- For more advanced Luasnip keymaps (e.g. selecting choice nodes, expansion) see:
         --    https://github.com/L3MON4D3/LuaSnip?tab=readme-ov-file#keymaps
+
+        ['<C-space>'] = { 'show', 'show_documentation', 'hide_documentation' },
+        ['<C-e>'] = { 'hide' },
+        -- ['<C-y>'] = { 'select_and_accept' },
+        ['<C-y>'] = {
+          function()
+            local cmp = require 'blink-cmp'
+            if cmp.is_menu_visible() then
+              return
+            end
+            local copilot_suggestion = require 'copilot.suggestion'
+            if copilot_suggestion ~= nil and copilot_suggestion.is_visible() then
+              copilot_suggestion.accept()
+              return true
+            end
+          end,
+          'select_and_accept',
+        },
+
+        ['<Up>'] = { 'select_prev', 'fallback' },
+        ['<Down>'] = { 'select_next', 'fallback' },
+        ['<C-p>'] = { 'select_prev', 'fallback_to_mappings' },
+        ['<C-n>'] = { 'select_next', 'fallback_to_mappings' },
+
+        ['<C-b>'] = { 'scroll_documentation_up', 'fallback' },
+        ['<C-f>'] = { 'scroll_documentation_down', 'fallback' },
+
+        ['<Tab>'] = { 'snippet_forward', 'fallback' },
+        ['<S-Tab>'] = { 'snippet_backward', 'fallback' },
+
+        ['<C-k>'] = { 'show_signature', 'hide_signature', 'fallback' },
       },
 
       appearance = {
@@ -76,9 +107,32 @@ return {
       },
 
       sources = {
-        default = { 'lsp', 'path', 'snippets', 'lazydev' },
+        default = { 'lsp', 'path', 'snippets', 'lazydev', 'buffer' },
         providers = {
           lazydev = { module = 'lazydev.integrations.blink', score_offset = 100 },
+          buffer = {
+            -- Make buffer compeletions appear at the end.
+            score_offset = -100,
+            enabled = function()
+              -- Filetypes for which buffer completions are enabled; add filetypes to extend:
+              local enabled_filetypes = {
+                'markdown',
+                'text',
+              }
+              local filetype = vim.bo.filetype
+              return vim.tbl_contains(enabled_filetypes, filetype)
+            end,
+          },
+          -- On WSL2, blink.cmp may cause the editor to freeze due to a known limitation.
+          -- To address this issue, uncomment the following configuration:
+          -- cmdline = {
+          --   enabled = function()
+          --     return vim.fn.getcmdtype() ~= ':' or not vim.fn.getcmdline():match "^[%%0-9,'<>%-]*!"
+          --   end,
+          -- },
+        },
+        per_filetype = {
+          codecompanion = { 'codecompanion' },
         },
       },
 

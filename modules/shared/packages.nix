@@ -1,10 +1,11 @@
 { pkgs, ... }:
 
 let
+  inherit (import ../../variables.nix) username;
   update = pkgs.writeShellScriptBin "update" ''
     sudo yabai --load-sa
-    git -C /Users/jimmy/Workspace/nix add /Users/jimmy/Workspace/nix
-    sudo darwin-rebuild switch --flake /Users/jimmy/Workspace/nix
+    git -C /Users/${username}/Workspace/nix add /Users/${username}/Workspace/nix
+    sudo darwin-rebuild switch --flake /Users/${username}/Workspace/nix
     sudo yabai --load-sa
   '';
 in
@@ -47,7 +48,6 @@ with pkgs;
   tailwindcss
   update
   spotify-player
-  btop
   duckdb
   unar
   ffmpeg
@@ -75,6 +75,10 @@ with pkgs;
   gradle_8
   websocat
   podman
+  claude-code
+  gnupg
+  postgresql
+  mise
   # ghc
   # haskellPackages.haskell-language-server
   # haskellPackages.cabal-install

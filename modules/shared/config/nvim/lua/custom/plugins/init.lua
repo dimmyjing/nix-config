@@ -35,10 +35,14 @@ return {
   },
 
   {
-    'github/copilot.vim',
-    config = function()
-      vim.g.copilot_assume_mapped = true
-    end,
+    'zbirenbaum/copilot.lua',
+    cmd = 'Copilot',
+    event = 'InsertEnter',
+    opts = {
+      suggestion = {
+        auto_trigger = true,
+      },
+    },
   },
 
   {
@@ -84,46 +88,107 @@ return {
   },
 
   {
-    'ThePrimeagen/harpoon',
-    branch = 'harpoon2',
-    dependencies = { 'nvim-lua/plenary.nvim' },
-    config = function()
-      local harpoon = require 'harpoon'
-      ---@diagnostic disable-next-line: missing-parameter
-      harpoon:setup {
-        settings = {
-          sync_on_ui_close = true,
-          save_on_toggle = true,
+    'olimorris/codecompanion.nvim',
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+      'nvim-treesitter/nvim-treesitter',
+    },
+    keys = {
+      {
+        '<C-a>',
+        '<cmd>CodeCompanionActions<cr>',
+        mode = { 'n', 'v' },
+        desc = 'Code Companion Actions',
+      },
+      {
+        '<leader>a',
+        '<cmd>CodeCompanionChat Toggle<cr>',
+        mode = { 'n', 'v' },
+        desc = 'Code Companion Chat',
+      },
+      {
+        'ga',
+        '<cmd>CodeCompanionChat Add<cr>',
+        mode = 'v',
+        desc = 'Code Companion Chat Add',
+      },
+    },
+    opts = {
+      strategies = {
+        chat = {
+          adapter = 'anthropic',
+          model = 'claude-sonnet-4-20250514',
         },
-      }
-
-      vim.keymap.set('n', '<leader>a', function()
-        harpoon:list():append()
-      end)
-      vim.keymap.set('n', '<c-e>', function()
-        harpoon.ui:toggle_quick_menu(harpoon:list())
-      end)
-
-      vim.keymap.set('n', '<leader>h', function()
-        harpoon:list():select(1)
-      end)
-      vim.keymap.set('n', '<leader>j', function()
-        harpoon:list():select(2)
-      end)
-      vim.keymap.set('n', '<leader>k', function()
-        harpoon:list():select(3)
-      end)
-      vim.keymap.set('n', '<leader>l', function()
-        harpoon:list():select(4)
-      end)
-
-      -- Toggle previous & next buffers stored within Harpoon list
-      vim.keymap.set('n', '<C-S-P>', function()
-        harpoon:list():prev()
-      end)
-      vim.keymap.set('n', '<C-S-N>', function()
-        harpoon:list():next()
-      end)
-    end,
+      },
+      adapters = {
+        http = {
+          anthropic = function()
+            return require('codecompanion.adapters').extend('anthropic', {
+              env = {
+                api_key = 'cmd: gpg --batch --quiet --decrypt $HOME/.config/nvim/secrets/claude.gpg',
+              },
+            })
+          end,
+        },
+        acp = {
+          claude_code = function()
+            return require('codecompanion.adapters').extend('claude_code', {
+              env = {
+                ANTHROPIC_API_KEY = 'cmd: gpg --batch --quiet --decrypt $HOME/.config/nvim/secrets/claude.gpg',
+              },
+            })
+          end,
+        },
+      },
+    },
   },
+
+  {
+    'MeanderingProgrammer/render-markdown.nvim',
+    ft = { 'markdown', 'codecompanion' },
+  },
+
+  -- {
+  --   'ThePrimeagen/harpoon',
+  --   branch = 'harpoon2',
+  --   dependencies = { 'nvim-lua/plenary.nvim' },
+  --   config = function()
+  --     local harpoon = require 'harpoon'
+  --     ---@diagnostic disable-next-line: missing-parameter
+  --     harpoon:setup {
+  --       settings = {
+  --         sync_on_ui_close = true,
+  --         save_on_toggle = true,
+  --       },
+  --     }
+  --
+  --     vim.keymap.set('n', '<leader>a', function()
+  --       harpoon:list():append()
+  --     end)
+  --     vim.keymap.set('n', '<c-e>', function()
+  --       harpoon.ui:toggle_quick_menu(harpoon:list())
+  --     end)
+  --
+  --     vim.keymap.set('n', '<leader>h', function()
+  --       harpoon:list():select(1)
+  --     end)
+  --     vim.keymap.set('n', '<leader>j', function()
+  --       harpoon:list():select(2)
+  --     end)
+  --     vim.keymap.set('n', '<leader>k', function()
+  --       harpoon:list():select(3)
+  --     end)
+  --     vim.keymap.set('n', '<leader>l', function()
+  --       harpoon:list():select(4)
+  --     end)
+  --
+  --     -- Toggle previous & next buffers stored within Harpoon list
+  --     vim.keymap.set('n', '<C-S-P>', function()
+  --       harpoon:list():prev()
+  --     end)
+  --     vim.keymap.set('n', '<C-S-N>', function()
+  --       harpoon:list():next()
+  --     end)
+  --   end,
+  -- },
 }

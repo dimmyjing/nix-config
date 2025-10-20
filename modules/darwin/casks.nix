@@ -59,7 +59,10 @@ _:
     # AI
     "diffusionbee"
   */
+  "comfyui"
   "chatgpt"
 
   "jellyfin-media-player"
+
+  "claude"
 ]

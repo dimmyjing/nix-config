@@ -1,5 +1,8 @@
 { pkgs, ... }:
 
+let
+  inherit (import ../../variables.nix) username;
+in
 {
   imports = [
     ../../modules/darwin/home-manager.nix
@@ -13,7 +16,7 @@
     #     if [ ! -d "/var/lib/postgresql/" ]; then
     #       echo "creating PostgreSQL data directory..."
     #       sudo mkdir -m 750 -p /var/lib/postgresql/
-    #       chown -R jimmy:staff /var/lib/postgresql/
+    #       chown -R ${username}:staff /var/lib/postgresql/
     #     fi
     #   '';
     # };
@@ -27,7 +30,7 @@
     #     host all all ::1/128 trust
     #   '';
     #   initdbArgs = [
-    #     "--username=jimmy"
+    #     "--username=${username}"
     #     "--pgdata=/var/lib/postgresql"
     #     "--auth=trust"
     #     "--no-locale"
@@ -44,12 +47,18 @@
 
     # Setup user, packages, programs
     nix = {
-      package = pkgs.nixVersions.latest;
-      settings.trusted-users = [
-        "@admin"
-        "jimmy"
-      ];
-      settings.experimental-features = "nix-command flakes";
+      enable = false;
+      # package = pkgs.nixVersions.latest;
+      # settings.trusted-users = [
+      #   "@admin"
+      #   username
+      # ];
+      # settings.experimental-features = "nix-command flakes";
+    };
+
+    nixpkgs.config = {
+      allowUnfree = true;
+      allowBroken = true;
     };
 
     programs.zsh.enable = true;
@@ -60,16 +69,19 @@
     # Load configuration that is shared across systems
     environment.systemPackages = import ../../modules/shared/packages.nix { inherit pkgs; };
 
-    security.pam.services.sudo_local.touchIdAuth = true;
+    security.pam.services.sudo_local = {
+      touchIdAuth = true;
+      reattach = true;
+    };
 
     fonts.packages = with pkgs; [
       nerd-fonts.hack
     ];
 
     system = {
-      primaryUser = "jimmy";
+      primaryUser = username;
 
-      stateVersion = 4;
+      stateVersion = 5;
 
       defaults = {
         LaunchServices = {

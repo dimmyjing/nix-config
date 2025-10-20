@@ -17,6 +17,9 @@ vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagn
 -- or just use <C-\><C-n> to exit terminal mode
 vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
 
+-- Close current buffer
+vim.keymap.set('n', '<leader>Q', ':bd<CR>', { desc = 'Close current buffer' })
+
 -- TIP: Disable arrow keys in normal mode
 -- vim.keymap.set('n', '<left>', '<cmd>echo "Use h to move!!"<CR>')
 -- vim.keymap.set('n', '<right>', '<cmd>echo "Use l to move!!"<CR>')
@@ -47,21 +50,8 @@ vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper win
 vim.api.nvim_create_autocmd('TextYankPost', {
   desc = 'Highlight when yanking (copying) text',
   group = vim.api.nvim_create_augroup('kickstart-highlight-yank', { clear = true }),
-  callback = function()
-    vim.hl.on_yank()
-  end,
+  callback = function() vim.hl.on_yank { timeout = 200 } end,
 })
-
--- NOTE: custom configs from jimmy
-
--- Keymap for copying
-vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
-vim.keymap.set({ 'n', 'v' }, '<leader>y', '"+y')
-vim.keymap.set('n', '<leader>Y', '"+Y')
-vim.keymap.set({ 'n', 'v' }, '<leader>d', '"+d')
-
--- Keymap for navigating buffers
-vim.keymap.set('n', '<backspace>', '<c-^>')
 
 -- Restore cursor position on file open
 vim.api.nvim_create_autocmd('BufReadPost', {
@@ -87,5 +77,29 @@ vim.api.nvim_create_autocmd('TermOpen', {
     vim.bo.signcolumn = 'no'
   end,
 })
+
+-- auto-create missing dirs when saving a file
+vim.api.nvim_create_autocmd('BufWritePre', {
+  desc = 'Auto-create missing dirs when saving a file',
+  group = vim.api.nvim_create_augroup('kickstart-auto-create-dir', { clear = true }),
+  pattern = '*',
+  callback = function()
+    local dir = vim.fn.expand '<afile>:p:h'
+    if vim.fn.isdirectory(dir) == 0 then
+      vim.fn.mkdir(dir, 'p')
+    end
+  end,
+})
+
+-- NOTE: custom configs from jimmy
+
+-- Keymap for copying
+vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
+vim.keymap.set({ 'n', 'v' }, '<leader>y', '"+y')
+vim.keymap.set('n', '<leader>Y', '"+Y')
+vim.keymap.set({ 'n', 'v' }, '<leader>d', '"+d')
+
+-- Keymap for navigating buffers
+vim.keymap.set('n', '<backspace>', '<c-^>')
 
 -- vim: ts=2 sts=2 sw=2 et

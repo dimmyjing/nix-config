@@ -8,13 +8,14 @@ let
   # Define the content of your file as a derivation
   sharedFiles = import ../shared/files.nix { inherit config pkgs; };
   additionalFiles = import ./files.nix { inherit config pkgs; };
+  inherit (import ../../variables.nix) username;
 in
 {
   config = {
     # It me
-    users.users.jimmy = {
-      name = "jimmy";
-      home = "/Users/jimmy";
+    users.users."${username}" = {
+      name = username;
+      home = "/Users/${username}";
       isHidden = false;
       shell = pkgs.zsh;
     };
@@ -31,8 +32,7 @@ in
         focus_follows_mouse = "autoraise";
         mouse_follows_focus = "on";
       };
-      extraConfig = ''
-      '';
+      extraConfig = '''';
     };
 
     services.tailscale = {
@@ -42,7 +42,7 @@ in
     # Enable home-manager
     home-manager = {
       useGlobalPkgs = true;
-      users.jimmy =
+      users."${username}" =
         {
           pkgs,
           config,
@@ -57,7 +57,7 @@ in
               sharedFiles
               additionalFiles
             ];
-            stateVersion = "23.11";
+            stateVersion = "25.11";
           }
           // import ../shared/home.nix { inherit config pkgs lib; };
           programs = { } // import ../shared/home-manager.nix { inherit config pkgs lib; };

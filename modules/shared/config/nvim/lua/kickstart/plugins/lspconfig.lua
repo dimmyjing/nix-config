@@ -130,9 +130,7 @@ return {
           map('grt', require('telescope.builtin').lsp_type_definitions, '[G]oto [T]ype Definition')
 
           -- Toggle to show/hide diagnostic messages
-          map('<leader>td', function()
-            vim.diagnostic.enable(not vim.diagnostic.is_enabled())
-          end, '[T]oggle [D]iagnostics')
+          map('<leader>td', function() vim.diagnostic.enable(not vim.diagnostic.is_enabled()) end, '[T]oggle [D]iagnostics')
 
           -- The following two autocommands are used to highlight references of the
           -- word under your cursor when your cursor rests there for a little while.
@@ -168,9 +166,7 @@ return {
           --
           -- This may be unwanted, since they displace some of your code
           if client and client:supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint, event.buf) then
-            map('<leader>th', function()
-              vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = event.buf })
-            end, '[T]oggle Inlay [H]ints')
+            map('<leader>th', function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = event.buf }) end, '[T]oggle Inlay [H]ints')
           end
         end,
       })
@@ -362,6 +358,12 @@ return {
         -- This table contains config for all language servers that are *not* installed via Mason.
         -- Structure is identical to the mason table from above.
         others = {
+          cuepls = {
+            cmd = { 'cue', 'lsp', 'serve' },
+            root_dir = lspconfig.util.root_pattern('cue.mod', '.git'),
+            filetypes = { 'cue' },
+            single_file_support = true,
+          },
           -- dartls = {},
           gleam = {},
           gopls = {

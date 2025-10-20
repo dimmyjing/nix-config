@@ -1,5 +1,5 @@
 {
-  description = "Jimmys Darwin System";
+  description = "Jimmys System";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable?shallow=1";
@@ -34,8 +34,11 @@
       homebrew-cask,
       homebrew-bundle,
     }:
+    let
+      inherit (import ./variables.nix) username host;
+    in
     {
-      darwinConfigurations."JimmysMacbook" = darwin.lib.darwinSystem {
+      darwinConfigurations."${host}" = darwin.lib.darwinSystem {
         system = "aarch64-darwin";
         specialArgs = inputs;
         modules = [
@@ -44,7 +47,7 @@
           {
             nix-homebrew = {
               enable = true;
-              user = "jimmy";
+              user = username;
               taps = {
                 "homebrew/homebrew-core" = homebrew-core;
                 "homebrew/homebrew-cask" = homebrew-cask;

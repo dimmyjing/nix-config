@@ -84,7 +84,8 @@ I hope you enjoy your Neovim journey,
 P.S. You can delete this when you're done too. It's your config now! :)
 --]]
 
--- Updated from https://github.com/oriori1703/kickstart-modular.nvim/tree/5d85e79f5db90d0a508ddd1c79eac5e15581e48a
+-- Updated from https://github.com/oriori1703/kickstart-modular.nvim/commit/26e280170e0c85961d0ed5a83d8fcfd3c285a184
+-- branch https://github.com/oriori1703/kickstart-modular.nvim/tree/maintained-upstream-modular
 
 -- Set <space> as the leader key
 -- See `:help mapleader`
