@@ -13,6 +13,7 @@ in
     shellAliases = {
       src = "cd ~/Workspace";
       ls = "ls -G --color=auto";
+      m = "mise";
     };
     oh-my-zsh = {
       enable = true;
@@ -144,25 +145,25 @@ in
       font-size = 20;
       theme = "Catppuccin Mocha";
       keybind = [
-        "super+t=text:\x02c"
-        "super+w=text:\x02&"
-        "super+d=text:\x02%"
-        "super+shift+d=text:\x02\""
-        "super+digit_1=text:\x021"
-        "super+digit_2=text:\x022"
-        "super+digit_3=text:\x023"
-        "super+digit_4=text:\x024"
-        "super+digit_5=text:\x025"
-        "super+digit_6=text:\x026"
-        "super+digit_7=text:\x027"
-        "super+digit_8=text:\x028"
-        "super+digit_9=text:\x029"
-        "ctrl+h=text:\x02h"
-        "ctrl+j=text:\x02j"
-        "ctrl+k=text:\x02k"
-        "ctrl+l=text:\x02l"
-        "ctrl+tab=text:\x02n"
-        "ctrl+shift+tab=text:\x02p"
+        "super+t=text:\\x02c"
+        "super+w=text:\\x02&"
+        "super+d=text:\\x02%"
+        "super+shift+d=text:\\x02\""
+        "super+digit_1=text:\\x021"
+        "super+digit_2=text:\\x022"
+        "super+digit_3=text:\\x023"
+        "super+digit_4=text:\\x024"
+        "super+digit_5=text:\\x025"
+        "super+digit_6=text:\\x026"
+        "super+digit_7=text:\\x027"
+        "super+digit_8=text:\\x028"
+        "super+digit_9=text:\\x029"
+        "ctrl+h=text:\\x02h"
+        "ctrl+j=text:\\x02j"
+        "ctrl+k=text:\\x02k"
+        "ctrl+l=text:\\x02l"
+        "ctrl+tab=text:\\x02n"
+        "ctrl+shift+tab=text:\\x02p"
       ];
     };
   };
@@ -170,6 +171,10 @@ in
   jujutsu = {
     enable = true;
     settings = {
+      user = {
+        name = "Jimmy Ding";
+        email = "jimmyguding@gmail.com";
+      };
       template-aliases = {
         "format_short_change_id(id)" = "id.shortest(4)";
         "format_short_commit_id(id)" = "id.shortest(4)";

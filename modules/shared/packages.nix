@@ -43,7 +43,7 @@ with pkgs;
   golangci-lint-langserver
   golangci-lint
   tree-sitter
-  ollama
+  # ollama
   xray
   tailwindcss
   update
@@ -79,6 +79,9 @@ with pkgs;
   gnupg
   postgresql
   mise
+  terraform
+  bitwarden-cli
+  tokio-console
   # ghc
   # haskellPackages.haskell-language-server
   # haskellPackages.cabal-install

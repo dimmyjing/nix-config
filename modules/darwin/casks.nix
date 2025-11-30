@@ -14,7 +14,7 @@ _:
   # Browsers
   "google-chrome"
   "firefox"
-  "arc"
+  "zen"
 
   # Productivity Tools
   "karabiner-elements"
@@ -31,11 +31,13 @@ _:
   "vlc"
 
   "burp-suite"
+  "wireshark"
   "proxyman"
 
   # Utility Tools
   "backblaze"
   "daisydisk"
+  "obs"
 
   /*
     "homebrew/cask/docker"

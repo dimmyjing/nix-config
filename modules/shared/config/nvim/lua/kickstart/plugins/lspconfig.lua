@@ -138,7 +138,7 @@ return {
           --
           -- When you move your cursor, the highlights will be cleared (the second autocommand).
           local client = vim.lsp.get_client_by_id(event.data.client_id)
-          if client and client:supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight, event.buf) then
+          if client and client:supports_method('textDocument/documentHighlight', event.buf) then
             local highlight_augroup = vim.api.nvim_create_augroup('kickstart-lsp-highlight', { clear = false })
             vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
               buffer = event.buf,
@@ -165,7 +165,7 @@ return {
           -- code, if the language server you are using supports them
           --
           -- This may be unwanted, since they displace some of your code
-          if client and client:supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint, event.buf) then
+          if client and client:supports_method('textDocument/inlayHint', event.buf) then
             map('<leader>th', function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = event.buf }) end, '[T]oggle Inlay [H]ints')
           end
         end,
@@ -191,8 +191,6 @@ return {
         -- Display multiline diagnostics as virtual lines
         -- virtual_lines = true,
       }
-
-      local lspconfig = require 'lspconfig'
 
       -- LSP servers and clients are able to communicate to each other what features they support.
       --  By default, Neovim doesn't support everything that is in the LSP specification.
@@ -228,7 +226,9 @@ return {
         --  Feel free to add/remove any LSPs here that you want to install via Mason. They will automatically be installed and setup.
         -- TODO: remove mason
         mason = {
+          buf = {},
           clangd = {},
+          -- cue = {},
           elixirls = {},
           eslint = {},
           html = { filetypes = { 'html', 'twig', 'hbs' } },
@@ -304,6 +304,8 @@ return {
             },
           },
           templ = {},
+          terraformls = {},
+          tflint = {},
           tinymist = {
             settings = {
               formatterMode = 'typstyle',
@@ -358,12 +360,6 @@ return {
         -- This table contains config for all language servers that are *not* installed via Mason.
         -- Structure is identical to the mason table from above.
         others = {
-          cuepls = {
-            cmd = { 'cue', 'lsp', 'serve' },
-            root_dir = lspconfig.util.root_pattern('cue.mod', '.git'),
-            filetypes = { 'cue' },
-            single_file_support = true,
-          },
           -- dartls = {},
           gleam = {},
           gopls = {
