@@ -172,8 +172,8 @@ in
     enable = true;
     settings = {
       user = {
-        name = "Jimmy Ding";
-        email = "jimmyguding@gmail.com";
+        name = name;
+        email = email;
       };
       template-aliases = {
         "format_short_change_id(id)" = "id.shortest(4)";
