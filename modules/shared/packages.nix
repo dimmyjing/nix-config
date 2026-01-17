@@ -82,6 +82,16 @@ with pkgs;
   terraform
   bitwarden-cli
   tokio-console
+  icu
+  curl
+  mkcert
+  nssTools
+  (google-cloud-sdk.withExtraComponents (
+    with google-cloud-sdk.components;
+    [
+      gke-gcloud-auth-plugin
+    ]
+  ))
   # ghc
   # haskellPackages.haskell-language-server
   # haskellPackages.cabal-install

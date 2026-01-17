@@ -123,13 +123,6 @@ return {
               return vim.tbl_contains(enabled_filetypes, filetype)
             end,
           },
-          -- On WSL2, blink.cmp may cause the editor to freeze due to a known limitation.
-          -- To address this issue, uncomment the following configuration:
-          -- cmdline = {
-          --   enabled = function()
-          --     return vim.fn.getcmdtype() ~= ':' or not vim.fn.getcmdline():match "^[%%0-9,'<>%-]*!"
-          --   end,
-          -- },
         },
         per_filetype = {
           codecompanion = { 'codecompanion' },

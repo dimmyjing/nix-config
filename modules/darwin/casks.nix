@@ -31,7 +31,7 @@ _:
   "vlc"
 
   "burp-suite"
-  "wireshark"
+  "wireshark-app"
   "proxyman"
 
   # Utility Tools

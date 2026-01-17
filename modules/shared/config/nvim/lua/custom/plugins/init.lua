@@ -46,10 +46,6 @@ return {
   },
 
   {
-    'hashivim/vim-terraform',
-  },
-
-  {
     'lifepillar/pgsql.vim',
     config = function()
       vim.g.sql_type_default = 'pgsql'
@@ -69,12 +65,6 @@ return {
   },
 
   {
-    'numToStr/Comment.nvim',
-    opts = {},
-    lazy = false,
-  },
-
-  {
     'chomosuke/typst-preview.nvim',
     ft = 'typst',
     version = '1.*',
@@ -84,7 +74,7 @@ return {
         ['tinymist'] = 'tinymist',
         ['websocat'] = 'websocat',
       },
-    }, -- lazy.nvim will implicitly calls `setup {}`
+    }, -- lazy.nvim will implicitly call `setup {}`
   },
 
   {

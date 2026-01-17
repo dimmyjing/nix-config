@@ -14,6 +14,7 @@ in
       src = "cd ~/Workspace";
       ls = "ls -G --color=auto";
       m = "mise";
+      mr = "mise run";
     };
     oh-my-zsh = {
       enable = true;

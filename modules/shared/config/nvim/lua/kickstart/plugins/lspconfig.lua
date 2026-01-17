@@ -226,11 +226,12 @@ return {
         --  Feel free to add/remove any LSPs here that you want to install via Mason. They will automatically be installed and setup.
         -- TODO: remove mason
         mason = {
+          biome = {},
           buf = {},
           clangd = {},
           -- cue = {},
           elixirls = {},
-          eslint = {},
+          -- eslint = {},
           html = { filetypes = { 'html', 'twig', 'hbs' } },
           lua_ls = {
             -- cmd = { ... },
@@ -246,7 +247,8 @@ return {
               },
             },
           },
-          prettier = {},
+          postgres_lsp = {},
+          -- prettier = {},
           jdtls = {},
           jsonls = {
             settings = {
@@ -304,31 +306,32 @@ return {
             },
           },
           templ = {},
-          terraformls = {},
           tflint = {},
           tinymist = {
             settings = {
               formatterMode = 'typstyle',
             },
           },
+          tofu_ls = {},
+          tsgo = {},
           tsp_server = {},
-          vtsls = {
-            settings = {
-              vtsls = {
-                tsserver = {
-                  globalPlugins = {
-                    {
-                      name = '@vue/typescript-plugin',
-                      location = vim.fn.expand '$MASON/packages' .. '/vue-language-server' .. '/node_modules/@vue/language-server',
-                      languages = { 'vue' },
-                      configNamespace = 'typescript',
-                    },
-                  },
-                },
-              },
-            },
-            filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' },
-          },
+          -- vtsls = {
+          --   settings = {
+          --     vtsls = {
+          --       tsserver = {
+          --         globalPlugins = {
+          --           {
+          --             name = '@vue/typescript-plugin',
+          --             location = vim.fn.expand '$MASON/packages' .. '/vue-language-server' .. '/node_modules/@vue/language-server',
+          --             languages = { 'vue' },
+          --             configNamespace = 'typescript',
+          --           },
+          --         },
+          --       },
+          --     },
+          --   },
+          --   filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' },
+          -- },
           vue_ls = {},
           yamlls = {
             settings = {
