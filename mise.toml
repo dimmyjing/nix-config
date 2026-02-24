@@ -1,0 +1,19 @@
+[tasks.update]
+description = "Update flake lock file"
+run = "nix flake update"
+
+[tasks.lint]
+description = "Run nix-fmt on all nix files"
+run = "nix fmt"
+
+[tasks.check]
+description = "Check nix files for errors"
+run = "nix flake check"
+
+[tasks.develop]
+description = "Start a development shell"
+run = "nix develop"
+
+[tasks.run]
+description = "Run the application"
+run = "nix run"

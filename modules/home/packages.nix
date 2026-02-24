@@ -1,0 +1,89 @@
+{ pkgs, ... }:
+{
+  # Nix packages to install to $HOME
+  #
+  # Search for packages here: https://search.nixos.org/packages
+  home.packages = with pkgs; [
+    jq
+    yq
+    ripgrep
+    tmux
+    go
+    bun
+    golangci-lint
+    docker
+    fira-code
+    cloudflared
+    ko
+    tailscale
+    kubectl
+    k9s
+    opentofu
+    kubernetes-helm
+    p7zip
+    gh
+    elixir
+    imagemagick
+    gleam
+    erlang
+    (python3.withPackages (p: [ ]))
+    turso-cli
+    markdownlint-cli
+    jdk21
+    rustup
+    gopls
+    golangci-lint-langserver
+    golangci-lint
+    tree-sitter
+    # ollama
+    xray
+    spotify-player
+    duckdb
+    unar
+    ffmpeg
+    just
+    pyright
+    doctl
+    fluxcd
+    natscli
+    awscli
+    deno
+    cue
+    uv
+    rclone
+    esbuild
+    typst
+    wget
+    fzf
+    nodejs_24
+    jujutsu
+    ruby
+    pnpm
+    weechat
+    nixfmt
+    nixd
+    gradle_8
+    websocat
+    podman
+    podman-tui
+    claude-code
+    gnupg
+    postgresql
+    mise
+    terraform
+    bitwarden-cli
+    tokio-console
+    icu78.dev
+    curl
+    mkcert
+    nssTools
+    pkg-config
+    (google-cloud-sdk.withExtraComponents (
+      with google-cloud-sdk.components;
+      [
+        gke-gcloud-auth-plugin
+      ]
+    ))
+    lazyjj
+  ];
+}
