@@ -1,4 +1,9 @@
-{ flake, pkgs, ... }:
+{
+  config,
+  flake,
+  pkgs,
+  ...
+}:
 
 # This is your nix-darwin configuration.
 # For home configuration, see /modules/home/*
@@ -7,11 +12,12 @@ let
 in
 {
   imports = [
+    ./me.nix
     inputs.nix-homebrew.darwinModules.nix-homebrew
     {
       nix-homebrew = {
         enable = true;
-        user = "jimmy";
+        user = config.me.primaryUser;
         taps = {
           "homebrew/homebrew-core" = inputs.homebrew-core;
           "homebrew/homebrew-cask" = inputs.homebrew-cask;
