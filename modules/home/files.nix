@@ -2,7 +2,7 @@
 {
   home = {
     file = {
-      "./.config/nvim" = {
+      ".config/nvim" = {
         source = ../../files/nvim;
         recursive = true;
       };
