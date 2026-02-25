@@ -36,7 +36,7 @@
   programs.zsh = {
     enable = true;
     shellAliases = {
-      update = "sudo sh -c \"cd /Users/${config.me.username}/Workspace/nix && git add . && nix run && yabai --load-sa\"";
+      update = "sudo sh -c \"cd $HOME/Workspace/nix && git add . && nix run && yabai --load-sa\"";
       source_env = "export __HM_SESS_VARS_SOURCED= && source ~/.nix-profile/etc/profile.d/hm-session-vars.sh";
       src = "cd ~/Workspace";
       ls = "ls -G --color=auto";
