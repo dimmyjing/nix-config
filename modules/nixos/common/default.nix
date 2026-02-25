@@ -1,3 +1,4 @@
+{ pkgs, ... }:
 {
   imports = [
     ./myusers.nix
@@ -11,5 +12,10 @@
   # Turn off NIX_PATH warnings now that we're using flakes
   system.checks.verifyNixPath = false;
 
-  nix.enable = false;
+  nix = {
+    enable = true;
+    settings.trusted-users = [ "@admin" ];
+    settings.experimental-features = "nix-command flakes";
+    package = pkgs.lixPackageSets.stable.lix;
+  };
 }
