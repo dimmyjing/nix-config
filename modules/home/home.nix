@@ -170,7 +170,7 @@
 
   programs.ghostty = {
     enable = true;
-    package = null;
+    package = lib.mkIf pkgs.stdenv.isDarwin null;
     settings = {
       font-family = "Hack Nerd Font Mono";
       font-size = 20;
