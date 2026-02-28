@@ -30,37 +30,27 @@ return {
     -- Basic debugging keymaps, feel free to change to your liking!
     {
       '<F5>',
-      function()
-        require('dap').continue()
-      end,
+      function() require('dap').continue() end,
       desc = 'Debug: Start/Continue',
     },
     {
       '<F1>',
-      function()
-        require('dap').step_into()
-      end,
+      function() require('dap').step_into() end,
       desc = 'Debug: Step Into',
     },
     {
       '<F2>',
-      function()
-        require('dap').step_over()
-      end,
+      function() require('dap').step_over() end,
       desc = 'Debug: Step Over',
     },
     {
       '<F3>',
-      function()
-        require('dap').step_out()
-      end,
+      function() require('dap').step_out() end,
       desc = 'Debug: Step Out',
     },
     {
       '<leader>b',
-      function()
-        require('dap').toggle_breakpoint()
-      end,
+      function() require('dap').toggle_breakpoint() end,
       desc = 'Debug: Toggle Breakpoint',
     },
     {
@@ -74,9 +64,7 @@ return {
           local buf_bps = require('dap.breakpoints').get(vim.fn.bufnr())[vim.fn.bufnr()]
           ---@type dap.SourceBreakpoint
           for _, candidate in ipairs(buf_bps) do
-            if candidate.line and candidate.line == vim.fn.line '.' then
-              return candidate
-            end
+            if candidate.line and candidate.line == vim.fn.line '.' then return candidate end
           end
 
           return { condition = '', logMessage = '', hitCondition = '', line = vim.fn.line '.' }
@@ -88,21 +76,15 @@ return {
           local props = {
             ['Condition'] = {
               value = bp.condition,
-              setter = function(v)
-                bp.condition = v
-              end,
+              setter = function(v) bp.condition = v end,
             },
             ['Hit Condition'] = {
               value = bp.hitCondition,
-              setter = function(v)
-                bp.hitCondition = v
-              end,
+              setter = function(v) bp.hitCondition = v end,
             },
             ['Log Message'] = {
               value = bp.logMessage,
-              setter = function(v)
-                bp.logMessage = v
-              end,
+              setter = function(v) bp.logMessage = v end,
             },
           }
           local menu_options = {}
@@ -111,9 +93,7 @@ return {
           end
           vim.ui.select(menu_options, {
             prompt = 'Edit Breakpoint',
-            format_item = function(item)
-              return ('%s: %s'):format(item, props[item].value)
-            end,
+            format_item = function(item) return ('%s: %s'):format(item, props[item].value) end,
           }, function(choice)
             if choice == nil then
               -- User cancelled the selection
@@ -136,9 +116,7 @@ return {
     -- Toggle to see last session result. Without this, you can't see session output in case of unhandled exception.
     {
       '<F7>',
-      function()
-        require('dapui').toggle()
-      end,
+      function() require('dapui').toggle() end,
       desc = 'Debug: See last session result.',
     },
   },
